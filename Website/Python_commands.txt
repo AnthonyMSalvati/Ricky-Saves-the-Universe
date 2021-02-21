@@ -1,0 +1,2 @@
+python -c 'import hello; hello.db.create_all()'
+python hello.py
