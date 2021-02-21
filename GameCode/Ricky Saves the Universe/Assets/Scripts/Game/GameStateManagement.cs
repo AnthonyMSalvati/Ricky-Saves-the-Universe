@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.UI;
 
 public class GameStateManagement : MonoBehaviour
 {
@@ -73,12 +74,22 @@ public class GameStateManagement : MonoBehaviour
         score += 5;
     }
 
+    public void addToScore(int num) //exists only because i'm tired and needed to hack this together, much like a lot of this other code
+    {
+        score += num;
+    }
+
+    public int getScore()
+    {
+        return score;
+    }
     static void writeScore()
     {
-        string path = "Assets/Resources/score.txt";
-        StreamWriter writer = new StreamWriter(path, false);
-        writer.WriteLine("score," + score);
-        writer.Close();
+        string path = "C:\\Users\\Public\\Score.csv";
+        if (!File.Exists(path))
+        {
+            File.WriteAllText(path, "score: " + score.ToString());
+        }
     }
 
 }

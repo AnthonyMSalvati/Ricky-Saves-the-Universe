@@ -14,7 +14,7 @@ public class PlayerFire : MonoBehaviour
     public GameObject player;
     private static bool isExplosive = false;
     private static string ammoType = "brick";
-
+    
     // Update is called once per frame
     void Update()
     {

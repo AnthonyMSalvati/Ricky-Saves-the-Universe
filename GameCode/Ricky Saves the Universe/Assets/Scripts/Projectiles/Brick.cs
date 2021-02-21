@@ -9,10 +9,14 @@ public class Brick : MonoBehaviour
     private bool isExplosive = false;
     public GameObject explosion;
     float ttl = 0;
+    public AudioSource whoosh;
+    public AudioClip throwNoise;
 
     // Start is called before the first frame update
     void Start()
     {
+        whoosh = gameObject.GetComponent<AudioSource>();
+        whoosh.PlayOneShot(throwNoise, .05f);
         brick.velocity = transform.right * -speed;
         ttl = Time.time;
     }

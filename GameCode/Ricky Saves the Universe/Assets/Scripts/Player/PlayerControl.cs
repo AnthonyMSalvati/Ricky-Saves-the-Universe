@@ -14,6 +14,7 @@ public class PlayerControl : MonoBehaviour
     private string ammo = "Brick";
     private float pwrUpStart = 0;
 
+    public GameObject scoreUpdate;
 
     private void Start()
     {
@@ -101,7 +102,7 @@ public class PlayerControl : MonoBehaviour
         }
         if (collision.CompareTag("PwrUpVaccine"))
         {
-            
+            scoreUpdate.GetComponent<GameStateManagement>().addToScore(1000000); //super rare drop, million free points
         }
     }
 

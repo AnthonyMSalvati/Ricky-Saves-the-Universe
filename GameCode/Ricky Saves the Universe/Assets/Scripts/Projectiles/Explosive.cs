@@ -5,9 +5,7 @@ using UnityEngine;
 public class Explosive : MonoBehaviour
 {
 
-    //public Sprite brick;
-    //public Sprite boom;
-    //public SpriteRenderer spriteRenderer;
+    public AudioSource explode;
 
     public float speed = 15f;
     public Rigidbody2D radial;
@@ -17,8 +15,8 @@ public class Explosive : MonoBehaviour
     void Start()
     {
         radial.velocity = transform.right * 0;
-       // spriteRenderer = GetComponent<SpriteRenderer>();
-        //this.GetComponent<SpriteRenderer>().sprite = brick;
+        explode = gameObject.GetComponent<AudioSource>();
+        explode.Play();
 
     }
 
