@@ -5,10 +5,10 @@ using UnityEngine;
 public class Explosive : MonoBehaviour
 {
 
-    public AudioSource explode;
 
     public float speed = 15f;
     public Rigidbody2D radial;
+    public AudioSource explode;
 
 
     // Start is called before the first frame update

@@ -26,7 +26,7 @@ public class GameStateManagement : MonoBehaviour
     {
         if (remaining.getCovidRemaining() == 0)
         {
-            round *= 1.25f;
+            round *= 1.45f;
             startNewRound(round);
         }
         if (player.GetComponent<PlayerControl>().getHP() == 0)

@@ -8,11 +8,17 @@ public class EnemyInfo : MonoBehaviour
     public GameObject thorn;
     public GameObject gameStateManager;
     public Transform throwPoint;
+    public AudioSource fireSound;
+    public AudioSource deathSound;
+    public AudioClip death;
     bool canAttack;
 
     // Start is called before the first frame update
     void Start()
     {
+        deathSound = gameObject.GetComponent<AudioSource>();
+        death = gameObject.GetComponent<AudioClip>();
+        fireSound = gameObject.GetComponent<AudioSource>();
         StartCoroutine(attack());
     }
 
@@ -34,7 +40,7 @@ public class EnemyInfo : MonoBehaviour
             if (canAttack)
             {
                 canAttack = false;
-
+                fireSound.Play();
                 float hypotenuse = Mathf.Sqrt(Mathf.Pow(playerPosition.x - transform.position.x, 2) + Mathf.Pow(transform.position.y, 2));
                 float oppA = playerPosition.x - transform.position.x;
                 float firingAngle = findAngle(oppA, hypotenuse);
@@ -51,6 +57,7 @@ public class EnemyInfo : MonoBehaviour
     {
         if ((collision.tag == "Brick") ^ (collision.tag == "TP") ^ (collision.tag == "Radial"))
         {
+            deathSound.PlayOneShot(death, .05f);
             recordDeath();
             Destroy(gameObject);
         }

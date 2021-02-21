@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Barb : MonoBehaviour
 {
-    public float speed = 15f;
+    public float speed = 13f;
     public Rigidbody2D barb;
     private static float ttl;
 

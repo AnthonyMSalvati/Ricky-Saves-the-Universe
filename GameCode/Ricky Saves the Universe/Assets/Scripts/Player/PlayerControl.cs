@@ -102,7 +102,7 @@ public class PlayerControl : MonoBehaviour
         }
         if (collision.CompareTag("PwrUpVaccine"))
         {
-            scoreUpdate.GetComponent<GameStateManagement>().addToScore(1000000); //super rare drop, million free points
+            scoreUpdate.GetComponent<GameStateManagement>().addToScore(1500); //super rare drop
         }
     }
 
