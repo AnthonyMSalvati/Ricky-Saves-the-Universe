@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Brick : MonoBehaviour
 {
-    public float speed = 15f;
+    public float speed = 12f;
     public Rigidbody2D brick;
     private bool isExplosive = false;
     public GameObject explosion;
