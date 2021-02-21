@@ -23,8 +23,6 @@ public class PlayerFire : MonoBehaviour
     void Throw()
     {
         UnityEngine.Random rnd = new UnityEngine.Random();
-        DateTime lastFired = DateTime.Now;
-
         Instantiate(lightBrickPrefab, throwPoint.position, throwPoint.rotation);
     }
 }

@@ -4,15 +4,7 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
-    Vector3 oldPosition;
     int speed = 10;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -36,24 +28,11 @@ public class PlayerControl : MonoBehaviour
             moveDirection = -1;
         }
 
-        oldPosition = transform.position;
         Vector3 moveDir = new Vector3(moveDirection, 0);
-
         Vector3 targetPosition = transform.position + moveDir * speed * Time.deltaTime;
 
 
         transform.position = targetPosition;
-
-        /*RaycastHit2D collisionDetection = Physics2D.Raycast(transform.position, moveDir, speed * Time.deltaTime);
-
-        if (collisionDetection.collider == null)
-        {
-            transform.position = targetPosition;
-        }
-        else
-        {
-        }*/
-
 
     }
 
@@ -68,15 +47,10 @@ public class PlayerControl : MonoBehaviour
             transform.position = new Vector3(12.9f, -6.58f, 0);
         }
     }
-    /*private void OnTriggerStay2D(Collider2D collision)
-    {
 
-        if (collision.tag == "Left Boundary")
-        {
-            Debug.Log("hit");
-            
-        }
-        transform.position = oldPosition;
-    }*/
+    public Vector3 getPosition()
+    {
+        return transform.position;
+    }
 }
 
