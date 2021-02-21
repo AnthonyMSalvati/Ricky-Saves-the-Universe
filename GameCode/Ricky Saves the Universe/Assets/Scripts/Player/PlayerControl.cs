@@ -48,7 +48,6 @@ public class PlayerControl : MonoBehaviour
         }
         if (collision.tag == "Barb")
         {
-            Debug.Log("got hit by barb");
             Destroy(gameObject);
         }
     }

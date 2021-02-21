@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,7 +21,20 @@ public class PlayerFire : MonoBehaviour
 
     void Throw()
     {
-        UnityEngine.Random rnd = new UnityEngine.Random();
-        Instantiate(lightBrickPrefab, throwPoint.position, throwPoint.rotation);
+        int brickType = Random.Range(0,4);
+        GameObject currentBrick;
+        switch (brickType)
+        {
+            case 1:
+                currentBrick = redBrickPrefab;
+                break;
+            case 2:
+                currentBrick = orangeBrickPrefab;
+                break;
+            default:
+                currentBrick = lightBrickPrefab;
+                break;
+        }
+        Instantiate(currentBrick, throwPoint.position, throwPoint.rotation);
     }
 }

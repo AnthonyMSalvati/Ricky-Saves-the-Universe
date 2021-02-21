@@ -9,13 +9,10 @@ public class EnemyInfo : MonoBehaviour
     public GameObject gameStateManager;
     public Transform throwPoint;
     bool canAttack;
-    float fireDelay = 1.0f;
-    private static float lastThrow = 0.0f;
 
     // Start is called before the first frame update
     void Start()
     {
-        lastThrow = Time.time;
         StartCoroutine(attack());
     }
 
@@ -33,13 +30,11 @@ public class EnemyInfo : MonoBehaviour
             if (gameStateManager.GetComponent<GameStateManagement>().getToken())
             {
                 canAttack = true;
-                lastThrow = Time.time;
             }
             if (canAttack)
             {
                 canAttack = false;
 
-                //Debug.Log("wants to attack" + (Time.time-fireDelay));
                 float hypotenuse = Mathf.Sqrt(Mathf.Pow(playerPosition.x - transform.position.x, 2) + Mathf.Pow(transform.position.y, 2));
                 float oppA = playerPosition.x - transform.position.x;
                 float firingAngle = findAngle(oppA, hypotenuse);
