@@ -46,6 +46,11 @@ public class PlayerControl : MonoBehaviour
         {
             transform.position = new Vector3(12.9f, -6.58f, 0);
         }
+        if (collision.tag == "Barb")
+        {
+            Debug.Log("got hit by barb");
+            Destroy(gameObject);
+        }
     }
 
     public Vector3 getPosition()

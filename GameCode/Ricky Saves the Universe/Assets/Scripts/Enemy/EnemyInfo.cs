@@ -6,42 +6,74 @@ public class EnemyInfo : MonoBehaviour
 {
     public GameObject player;
     public GameObject thorn;
+    public GameObject gameStateManager;
     public Transform throwPoint;
     bool canAttack;
+    float fireDelay = 1.0f;
+    private static float lastThrow = 0.0f;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        lastThrow = Time.time;
+        StartCoroutine(attack());
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 playerPosition = player.GetComponent<PlayerControl>().getPosition();
-        
-        if (canAttack)
-        {
-            float firingAngle = findAngle(playerPosition.x - transform.position.x, transform.position.y);
-            Quaternion rotation = Quaternion.Euler(0, firingAngle, 0);
-            Instantiate(thorn, throwPoint.position, rotation);
-        }
-                          
-    }
 
+    }
+    IEnumerator attack()
+    {
+        while (true)
+        {
+            yield return new WaitForSecondsRealtime(Random.Range(1.2f, 1.75f));
+            Vector3 playerPosition = player.GetComponent<PlayerControl>().getPosition();
+            if (gameStateManager.GetComponent<GameStateManagement>().getToken())
+            {
+                canAttack = true;
+                lastThrow = Time.time;
+            }
+            if (canAttack)
+            {
+                canAttack = false;
+
+                //Debug.Log("wants to attack" + (Time.time-fireDelay));
+                float hypotenuse = Mathf.Sqrt(Mathf.Pow(playerPosition.x - transform.position.x, 2) + Mathf.Pow(transform.position.y, 2));
+                float oppA = playerPosition.x - transform.position.x;
+                float firingAngle = findAngle(oppA, hypotenuse);
+                Quaternion rotation = Quaternion.Euler(0, 0, firingAngle);
+                Instantiate(thorn, throwPoint.position, rotation);
+            }
+            yield return new WaitForSecondsRealtime(Random.Range(1.2f, 3.5f));
+            gameStateManager.GetComponent<GameStateManagement>().giveToken();
+
+        }
+
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Brick")
         {
+            recordDeath();
             Destroy(gameObject);
         }
 
     }
 
-    private float findAngle(float opposite, float adjacent)
+    private float findAngle(float opposite, float hypotenuse)
     {
-        return Mathf.Rad2Deg * Mathf.Atan(opposite/adjacent);
+
+        float offset = Random.Range(-1.025f, 1.025f);
+        return offset * (Mathf.Rad2Deg * Mathf.Sin(opposite/hypotenuse));
+    }
+
+    private void recordDeath()
+    {
+        gameStateManager.GetComponent<GameStateManagement>().recordDeath();
     }
 }
+
 
 

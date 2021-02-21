@@ -3,49 +3,96 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameStateManagement : MonoBehaviour
-{    
-    int covidRemaining = 0;
+{
+    static CovidRemaining remaining = new CovidRemaining();
     int score = 0;
-    float round = 1f;
-    bool covidEliminated = false;
+    float round = 5f;
     public GameObject player;
-    private List<GameObject> remaining;
     public GameObject covid;
+    private static List<Object> tokens = new List<Object>();
 
 
     // Start is called before the first frame update
     void Start()
     {
         new WaitForSecondsRealtime(3);
-        for (int i = 0; i < 200; i++ )
-        {
-            Instantiate(covid, new Vector3(Random.Range(-12.75f, 12.75f), Random.Range(2.25f, 7.35f), 0), Quaternion.Euler(0,0,0));
-        }
+        startNewRound(round);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
-
-        //GameObject[] covid = GameObject.FindGameObjectsWithTag("Covid");
-        //covidRemaining = covid.Length;
-
-        if (covidRemaining == 0)
+        if (remaining.getCovidRemaining() == 0)
         {
             round *= 1.15f;
+            startNewRound(round);
         }
 
     }
 
-    //public void Enemy
-
-    void spawnCovid(int number)
+    public void giveToken()
     {
-        for (int i = 0; i < number; i++)
-        {
-
-        }
+        tokens.Add(new Object());
     }
 
+    public bool getToken()
+    {       
+        if (tokens.Count >= 1)
+        {
+            tokens.Remove(tokens[tokens.Count - 1]);
+            return true;
+        }
+        else return false;
+    }
+
+    void startNewRound(float round)
+    {
+        new WaitForSecondsRealtime(3); //give some breathing time
+        tokens.Clear(); //resets number of attackers 
+        for (int i = 0; i < round; i++)
+        {
+            Instantiate(covid, new Vector3(Random.Range(-12.75f, 12.75f), Random.Range(2.25f, 7.35f), 0), Quaternion.Euler(0, 0, 0)); //spawns in enemies           
+        }
+        for (int i = 0; i < round/4; i++)
+        {
+            tokens.Add(new Object()); //sets limit on number of attackers
+        }
+        tokens.Add(new Object());
+        remaining.setCovidRemaining((int)round);
+
+    }
+
+    public void recordDeath()
+    {
+        remaining.decrement();
+        score += 5;
+
+    }
+
+}
+
+public class CovidRemaining
+{
+    private static int covid = 0;
+
+    public void setCovidRemaining(int number)
+    {
+        covid = number;
+    }
+
+    public int getCovidRemaining()
+    {
+        return covid;
+    }
+
+    public void increment()
+    {
+        covid++;
+    }
+
+    public void decrement()
+    {
+        covid--;
+    }
 }
