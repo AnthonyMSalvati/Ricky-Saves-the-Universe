@@ -41,7 +41,7 @@ public class EnemyInfo : MonoBehaviour
                 Quaternion rotation = Quaternion.Euler(0, 0, firingAngle);
                 Instantiate(thorn, throwPoint.position, rotation);
             }
-            yield return new WaitForSecondsRealtime(Random.Range(1.2f, 3.5f));
+            yield return new WaitForSecondsRealtime(Random.Range(1.2f, 2.5f));
             gameStateManager.GetComponent<GameStateManagement>().giveToken();
 
         }
@@ -49,7 +49,7 @@ public class EnemyInfo : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Brick")
+        if ((collision.tag == "Brick") ^ (collision.tag == "TP") ^ (collision.tag == "Radial"))
         {
             recordDeath();
             Destroy(gameObject);

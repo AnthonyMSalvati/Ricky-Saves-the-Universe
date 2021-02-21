@@ -4,16 +4,42 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
+    public Sprite defaultspr;
+    public Sprite masked;
+    public SpriteRenderer spriteRenderer;   
+
     int speed = 10;
+    private int HP = 1;
+    private float spriteChangeTime;
+    private string ammo = "Brick";
+    private float pwrUpStart;
+
+
+    private void Start()
+    {
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+    }
+
     // Update is called once per frame
     void Update()
     {
         movePlayer();
-        if (Input.GetKey(KeyCode.Space))
+        if (this.GetComponent<SpriteRenderer>().sprite == masked)
         {
-            // fire projectile
-            // going to need some math here so the projectile launches from the outstreched hand and goes directly above the character. probably a 345-350 degree angle
+            if ((Time.time - spriteChangeTime) > 3)
+            {
+                HP = 1;
+                this.GetComponent<SpriteRenderer>().sprite = defaultspr;
+            }
         }
+        if (ammo != "Brick")
+        {
+            if ((Time.time - pwrUpStart) > 20)
+            {
+                ammo = "Brick";
+            }
+        }
+        
     }
 
     private void movePlayer()
@@ -38,23 +64,55 @@ public class PlayerControl : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Left Boundary")
+        if (collision.CompareTag("Left Boundary"))
         {
             transform.position = new Vector3(-12.9f, -6.58f, 0);
         }
-        if (collision.tag == "Right Boundary")
+        if (collision.CompareTag("Right Boundary"))
         {
             transform.position = new Vector3(12.9f, -6.58f, 0);
         }
-        if (collision.tag == "Barb")
+        if (collision.CompareTag("Barb"))
         {
-            Destroy(gameObject);
+            HP--;
+            if (HP < 1)
+            {
+                Destroy(gameObject);
+            }
+        }
+        if (collision.CompareTag("PwrUpTP"))
+        {
+            ammo = "TP";
+        }
+        if (collision.CompareTag("PwrUpHandSanitizer"))
+        {
+            ammo = "Radial";
+        }
+        if (collision.CompareTag("Mask"))
+        {
+            HP = 3;
+            this.GetComponent<SpriteRenderer>().sprite = masked;
+            spriteChangeTime = Time.time;
+        }
+        if (collision.CompareTag("PwrUpVaccine"))
+        {
+            
         }
     }
 
     public Vector3 getPosition()
     {
         return transform.position;
+    }
+
+    public string getAmmoType()
+    {
+        return ammo;
+    }
+
+    public int getHP()
+    {
+        return HP;
     }
 }
 

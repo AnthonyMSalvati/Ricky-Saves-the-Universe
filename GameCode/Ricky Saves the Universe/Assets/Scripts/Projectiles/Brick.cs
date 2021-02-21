@@ -6,6 +6,8 @@ public class Brick : MonoBehaviour
 {
     public float speed = 15f;
     public Rigidbody2D brick;
+    private bool isExplosive = false;
+    public GameObject explosion;
 
     // Start is called before the first frame update
     void Start()
@@ -15,7 +17,22 @@ public class Brick : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Destroy(gameObject); //cleans up bricks so resources are freed back up
+        Debug.Log(collision.tag);
+        if (isExplosive & collision.CompareTag("Covid"))
+        {
+            GameObject expl = Instantiate(explosion, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+            Destroy(expl, 2);
+        }
+        else
+        {
+            Destroy(gameObject); //cleans up bricks so resources are freed back up
+        }
     }
 
+
+    public void setExplosive()
+    {
+        isExplosive = true;
+    }
 }

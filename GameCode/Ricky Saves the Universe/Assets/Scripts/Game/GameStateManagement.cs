@@ -5,8 +5,8 @@ using UnityEngine;
 public class GameStateManagement : MonoBehaviour
 {
     static CovidRemaining remaining = new CovidRemaining();
-    int score = 0;
-    float round = 5f;
+    static int score = 0;
+    float round;
     public GameObject player;
     public GameObject covid;
     private static List<Object> tokens = new List<Object>();
@@ -15,9 +15,8 @@ public class GameStateManagement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        new WaitForSecondsRealtime(3);
+        round = 10;
         startNewRound(round);
-
     }
 
     // Update is called once per frame
@@ -25,8 +24,12 @@ public class GameStateManagement : MonoBehaviour
     {
         if (remaining.getCovidRemaining() == 0)
         {
-            round *= 1.15f;
+            round *= 1.25f;
             startNewRound(round);
+        }
+        if (player.GetComponent<PlayerControl>().getHP() == 0)
+        {
+
         }
 
     }
@@ -67,7 +70,6 @@ public class GameStateManagement : MonoBehaviour
     {
         remaining.decrement();
         score += 5;
-
     }
 
 }
