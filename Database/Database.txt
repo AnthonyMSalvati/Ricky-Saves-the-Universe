@@ -1,0 +1,11 @@
+connect to db:
+
+cockroach sql --url 'postgres://ashmita:e49zZQcEYgEL-O2l@free-tier3.aws-us-west-2.cockroachlabs.cloud:26257/ricky-saves-113.defaultdb?sslmode=verify-full&sslrootcert=E:/Python/Ricky_Saves_World/database/certs/cc-ca.crt'
+
+CREATE DATABASE scores1;
+
+USE DATABASE scores1;
+
+CREATE USER score WITH PASSWORD score;
+
+GRANT ALL ON DATABASE score1 TO score;
