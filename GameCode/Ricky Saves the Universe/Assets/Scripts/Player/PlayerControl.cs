@@ -12,7 +12,7 @@ public class PlayerControl : MonoBehaviour
     private int HP = 1;
     private float spriteChangeTime;
     private string ammo = "Brick";
-    private float pwrUpStart;
+    private float pwrUpStart = 0;
 
 
     private void Start()
@@ -34,7 +34,7 @@ public class PlayerControl : MonoBehaviour
         }
         if (ammo != "Brick")
         {
-            if ((Time.time - pwrUpStart) > 20)
+            if ((Time.time - pwrUpStart) > 3)
             {
                 ammo = "Brick";
             }
@@ -64,6 +64,8 @@ public class PlayerControl : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
+        Debug.Log(collision.tag);
         if (collision.CompareTag("Left Boundary"))
         {
             transform.position = new Vector3(-12.9f, -6.58f, 0);
@@ -83,10 +85,13 @@ public class PlayerControl : MonoBehaviour
         if (collision.CompareTag("PwrUpTP"))
         {
             ammo = "TP";
+            pwrUpStart = Time.time;
         }
         if (collision.CompareTag("PwrUpHandSanitizer"))
         {
             ammo = "Radial";
+            pwrUpStart = Time.time;
+
         }
         if (collision.CompareTag("Mask"))
         {

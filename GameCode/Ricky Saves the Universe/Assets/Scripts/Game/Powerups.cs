@@ -36,11 +36,11 @@ public class Powerups : MonoBehaviour
             {
                 Instantiate(maskPwrUp, new Vector3(Random.Range(-12.75f, 12.75f), 6.1f, 0), Quaternion.Euler(0, 0, 0));
             }
-            else if (2501 < rng & rng < 9000)
+            else if (2501 < rng & rng < 3500)
             {
                 Instantiate(sanitizerPwrUp, new Vector3(Random.Range(-12.75f, 12.75f), 6.1f, 0), Quaternion.Euler(0, 0, 0));
             }
-            else if (3501 < rng & rng < 6000)
+            else if (1500 < rng & rng < 9000)
             {
                 Instantiate(toiletPaperPwrUp, new Vector3(Random.Range(-12.75f, 12.75f), 6.1f, 0), Quaternion.Euler(0, 0, 0));
             }

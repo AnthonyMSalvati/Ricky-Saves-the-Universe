@@ -28,21 +28,4 @@ public class Explosive : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.CompareTag("Covid"))
-        {
-            Debug.Log("colliding");
-            
-        }
-        //this.GetComponent<SpriteRenderer>().sprite = boom;
-        //StartCoroutine(explode());
-    }
-
-    IEnumerator explode()
-    {
-        Debug.Log("in subroutine");
-        yield return new WaitForSecondsRealtime(2);
-        Destroy(gameObject);
-    }
 }

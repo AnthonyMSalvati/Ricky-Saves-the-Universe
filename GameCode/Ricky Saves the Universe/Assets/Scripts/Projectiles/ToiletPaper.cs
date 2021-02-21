@@ -12,7 +12,8 @@ public class ToiletPaper : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        toiletPaper.velocity = transform.up * -speed;
+        ttl = Time.time;
+        toiletPaper.velocity = transform.right * -speed;
     }
     private void Update()
     {
@@ -21,5 +22,4 @@ public class ToiletPaper : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
 }

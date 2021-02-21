@@ -30,7 +30,7 @@ public class PlayerFire : MonoBehaviour
         switch (ammoType)
         {
             case "toiletpaper":
-                Instantiate(toiletPaperPrefab, throwPoint.position, Quaternion.Euler(0, 0, 0));
+                Instantiate(toiletPaperPrefab, throwPoint.position, throwPoint.rotation);
                 break;
             case "brick":
                 int brickType = Random.Range(0, 4);
@@ -63,13 +63,14 @@ public class PlayerFire : MonoBehaviour
 
     void setAmmoType()
     {
-        
-        string type = player.GetComponent<PlayerControl>().getAmmoType();
+        string type = player.GetComponent<PlayerControl>().getAmmoType().ToString();
+        Debug.Log(type);
         switch (type)
         {
             case ("TP"):
                 ammoType = "toiletpaper";
                 isExplosive = false;
+                Debug.Log(ammoType);
                 break;
             case ("Radial"):
                 ammoType = "brick";
@@ -80,5 +81,10 @@ public class PlayerFire : MonoBehaviour
                 isExplosive = false;
                 break;
         }       
+    }
+
+    IEnumerator delayAmmoCheck()
+    {
+        yield return new WaitForSecondsRealtime(3);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class GameStateManagement : MonoBehaviour
 {
@@ -29,7 +30,7 @@ public class GameStateManagement : MonoBehaviour
         }
         if (player.GetComponent<PlayerControl>().getHP() == 0)
         {
-
+            writeScore();
         }
 
     }
@@ -70,6 +71,14 @@ public class GameStateManagement : MonoBehaviour
     {
         remaining.decrement();
         score += 5;
+    }
+
+    static void writeScore()
+    {
+        string path = "Assets/Resources/score.txt";
+        StreamWriter writer = new StreamWriter(path, false);
+        writer.WriteLine("score," + score);
+        writer.Close();
     }
 
 }
